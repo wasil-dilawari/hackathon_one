@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "eCommerce Website - Hackathon One",
+  title: "eStore - Hackathon One",
   description: "Full stack eCommerce Website using NextJS",
 };
 
