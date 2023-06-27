@@ -6,17 +6,17 @@ export async function getCategoryData() {
   return res;
 }
 
-interface category {
+interface Icategory {
   _id: string;
   title: string;
 }
 
 export default async function Home() {
-  const data = await getCategoryData();
+  const data: Icategory[] = await getCategoryData();
   return (
     <main>
       <div>
-        {data.map((data: category) => (
+        {data.map((data: Icategory) => (
           <div key={data._id}>
             <Link href={data.title}>{data.title}</Link>
           </div>
