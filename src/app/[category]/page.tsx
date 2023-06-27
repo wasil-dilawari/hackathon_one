@@ -4,7 +4,7 @@ import Image from "next/image";
 import { Image as IImage } from "sanity";
 import { urlForImage } from "../../../sanity/lib/image";
 
-export async function getCategoryID(categoryTitle: string) {
+async function getCategoryID(categoryTitle: string) {
   const res = await client.fetch(
     `*[_type=="category" && title=="${categoryTitle}"]{_id}`
   );
@@ -13,7 +13,7 @@ export async function getCategoryID(categoryTitle: string) {
   return res[0]._id;
 }
 
-export async function getProductData(categoryID: string) {
+async function getProductData(categoryID: string) {
   const res = await client.fetch(
     `*[_type == "product" && references("${categoryID}")]
     {
@@ -51,7 +51,7 @@ export default async function categoryPage({
       <div>You are at {params.category}</div>
       <div className=" grid grid-cols-[repeat(3,auto)] justify-center gap-4">
         {data.map((product: Iproduct) => (
-          <div id={product._id}>
+          <div key={product._id}>
             <Image
               src={urlForImage(product.primaryImage).url()}
               alt={product.title}

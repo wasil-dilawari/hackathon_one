@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { client } from "../../sanity/lib/client";
 
-export async function getCategoryData() {
+async function getCategoryData() {
   const res = await client.fetch(`*[_type=="category"]{_id, title}`);
   return res;
 }
