@@ -1,7 +1,11 @@
+import Hero from "@/views/Hero";
+import Products from "@/views/Products";
+
 export default function Home() {
   return (
     <div>
-      <div className=" ">You're at Home Page</div>
+      <Hero />
+      <Products />
     </div>
   );
 }

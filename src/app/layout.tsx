@@ -1,6 +1,8 @@
 import Footer from "./component/footer";
-import Header from "./component/header";
-import "./globals.css";
+// import Header from "./component/header";
+import Header from "@/components/layout/Header";
+import "@/app/globals.css";
+
 import { Sora } from "next/font/google";
 
 const sora = Sora({ subsets: ["latin"] });
@@ -21,7 +23,7 @@ export default function RootLayout({
         <header>
           <Header />
         </header>
-        <main>{children}</main>
+        <main className=" mx-10">{children}</main>
         <footer>
           <Footer />
         </footer>

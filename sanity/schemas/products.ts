@@ -63,5 +63,11 @@ export default defineType({
       type: "array",
       of: [{ type: "image" }],
     }),
+    defineField({
+      name: "featured",
+      title: "Featured",
+      type: "boolean",
+      description: "Featured Product",
+    }),
   ],
 });
