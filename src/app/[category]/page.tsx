@@ -3,27 +3,52 @@ import { client } from "../../../sanity/lib/client";
 import Image from "next/image";
 import { Image as IImage } from "sanity";
 import { urlForImage } from "../../../sanity/lib/image";
+import { ProductCard } from "../component/productCard";
 
 async function getCategoryID(categoryTitle: string) {
   const res = await client.fetch(
     `*[_type=="category" && title=="${categoryTitle}"]{_id}`
   );
-  //   console.log(res[0]._id);
+  // console.log(res[0]._id);
 
   return res[0]._id;
 }
 
-async function getProductData(categoryID: string) {
-  const res = await client.fetch(
-    `*[_type == "product" && references("${categoryID}")]
+async function getProductData(category: string) {
+  if (category === "All") {
+    var res = await client.fetch(
+      `*[_type == "product"]
+      {
+        _id,
+        title,
+        price,
+        primaryImage,
+        productType -> {title}
+      }`
+    );
+  } else {
+    var res = await client.fetch(
+      `*[_type == "product" && references(*[_type == "category" && title == "${category}"][0]._id)]
     {
-      _id, 
-      title, 
-      price, 
-      primaryImage, 
-      productType -> {title}}`
-  );
-  //   console.log(res);
+      _id,
+      title,
+      price,
+      primaryImage,
+      productType -> {title}
+    }`
+    );
+  }
+  // async function getProductData(categoryID: string, categoryTitle: string) {
+  // const res = await client.fetch(
+  //   `*[_type == "product" && references("${categoryID}")]
+  //   {
+  //     _id,
+  //     title,
+  //     price,
+  //     primaryImage,
+  //     productType -> {title}}`
+  // );
+  // console.log(res);
 
   return res;
 }
@@ -41,34 +66,30 @@ export default async function categoryPage({
 }: {
   params: { category: string };
 }) {
-  const catID: string = await getCategoryID(params.category);
+  // const catID: string = await getCategoryID(params.category);
   //   console.log(catID);
 
-  const data: Iproduct[] = await getProductData(catID);
+  const data: Iproduct[] = await getProductData(params.category);
+  // const data: Iproduct[] = await getProductData(catID);
 
   return (
-    <div>
-      <div>You are at {params.category}</div>
-      <div className=" grid grid-cols-[repeat(3,auto)] justify-center gap-4">
-        {data.map((product: Iproduct) => (
-          <div key={product._id}>
-            <Image
-              src={urlForImage(product.primaryImage).url()}
-              alt={product.title}
-              width={200}
-              height={300}
-            />
-            <div className="text-center">{product.title}</div>
-            <div className="text-center">${product.price}</div>
-            <div className=" flex justify-center">
-              <button className=" bg-slate-300 rounded-full px-3 py-1">
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        ))}
+    <div className=" flex flex-col mx-6 ">
+      <div className=" text-gray-300 font-semibold text-9xl text-left">
+        {params.category === "All" ? "All Products" : params.category}
       </div>
-      <Link href="/">Back to Home</Link>
+      <div className=" flex flex-col items-center">
+        <div className=" grid grid-cols-[repeat(3,auto)] justify-center gap-10">
+          {data.length === 0 ? (
+            <div>No products found in {params.category}</div>
+          ) : (
+            data.map((product: Iproduct) => (
+              <div key={product._id}>
+                <ProductCard product={product} />
+              </div>
+            ))
+          )}
+        </div>
+      </div>
     </div>
   );
 }

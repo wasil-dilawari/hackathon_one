@@ -1,4 +1,9 @@
+import Footer from "./component/footer";
+import Header from "./component/header";
 import "./globals.css";
+import { Sora } from "next/font/google";
+
+const sora = Sora({ subsets: ["latin"] });
 
 export const metadata = {
   title: "eStore - Hackathon One",
@@ -12,7 +17,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className={sora.className}>
+        <header>
+          <Header />
+        </header>
+        <main>{children}</main>
+        <footer>
+          <Footer />
+        </footer>
+      </body>
     </html>
   );
 }
