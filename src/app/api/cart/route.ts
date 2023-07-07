@@ -3,7 +3,7 @@ import { db, cartTable } from "@/lib/drizzle";
 import { v4 } from "uuid";
 import { cookies } from "next/headers";
 
-export async function GET(req?: NextRequest) {
+export async function GET(req: NextRequest) {
   try {
     const res = await db.select().from(cartTable);
     return NextResponse.json({ res });
