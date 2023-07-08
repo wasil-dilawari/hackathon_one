@@ -1,5 +1,5 @@
 import Image from "next/image";
-import logoImage from "/public/logo.webp";
+import logoImage from "public/images/logos/logo.webp";
 import { ShoppingCart, Search } from "lucide-react";
 import Link from "next/link";
 import { client } from "../../../sanity/lib/client";
@@ -26,11 +26,11 @@ export default async function Header() {
         <ul className=" flex gap-6">
           {data.map((data: Icategory) => (
             <li key={data._id}>
-              <Link href={data.title}>{data.title}</Link>
+              <Link href={`/${data.title}`}>{data.title}</Link>
             </li>
           ))}
           <li>
-            <Link href="All">All Products</Link>
+            <Link href="/All">All Products</Link>
           </li>
         </ul>
         <div className="hidden lg:block">

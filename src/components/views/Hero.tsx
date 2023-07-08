@@ -1,12 +1,16 @@
+import Image from "next/image";
+import Link from "next/link";
+
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+
 import { ShoppingCart } from "lucide-react";
-import heroImage from "/public/hero_main.webp";
-import Image from "next/image";
-import logoBazaar from "public/br_bazaar.webp";
-import logoBustle from "public/br_bustle.webp";
-import logoVersace from "public/br_versace.webp";
-import logoInstyle from "public/br_instyle.webp";
+
+import heroImage from "public/images/products/hero_main.webp";
+import logoBazaar from "public/images/logos/br_bazaar.webp";
+import logoBustle from "public/images/logos/br_bustle.webp";
+import logoVersace from "public/images/logos/br_versace.webp";
+import logoInstyle from "public/images/logos/br_instyle.webp";
 
 export default function Hero() {
   return (
@@ -23,12 +27,14 @@ export default function Hero() {
             Anyone can beat you but no one can beat your outfit as long as you
             wear Dine outfits.
           </p>
-          <Button className=" rounded-none px-4 py-8 font-semibold mt-6">
-            <ShoppingCart className=" mr-4 h-5 w-5" />
-            Start
-            <br />
-            Shopping
-          </Button>
+          <Link href={"All"}>
+            <Button className=" rounded-none px-4 py-8 font-semibold mt-6">
+              <ShoppingCart className=" mr-4 h-5 w-5" />
+              Start
+              <br />
+              Shopping
+            </Button>
+          </Link>
           <div className=" flex mt-6 gap-4">
             <Image src={logoBazaar} alt="Bazaar" />
             <Image src={logoBustle} alt="Bustler" />

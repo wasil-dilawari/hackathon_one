@@ -1,6 +1,7 @@
 import Image from "next/image";
-import logo from "/public/logo.webp";
+import logo from "public/images/logos/logo.webp";
 import { Twitter, Facebook, Linkedin } from "lucide-react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -10,7 +11,9 @@ export default function Footer() {
           <div className=" md:col-span-2">
             <div className=" flex flex-col gap-6 items-center md:items-start">
               <div>
-                <Image src={logo} alt="eStore Logo" />
+                <Link href={"/"}>
+                  <Image src={logo} alt="eStore Logo" />
+                </Link>
               </div>
               <div className=" text-gray-500 md:pr-10 text-center md:text-left">
                 Small, artisan label that offers a thoughtfully curated
@@ -40,22 +43,45 @@ export default function Footer() {
           </div>
           <div className=" flex flex-col items-center md:items-start gap-y-3 text-gray-500 mt-6 md:mt-0">
             <div className=" font-semibold text-gray-600">Company</div>
-            <div className=" ">About</div>
-            <div className=" ">Terms of Use</div>
-            <div className=" ">Privacy Policy</div>
-            <div className=" ">How it Works</div>
-            <div className=" ">Contact Us</div>
+            <Link href={"/pages/about"}>
+              <div className=" ">About</div>
+            </Link>
+            <Link href={"/pages/terms"}>
+              <div className=" ">Terms of Use</div>
+            </Link>
+
+            <Link href={"/pages/privacy"}>
+              <div className=" ">Privacy Policy</div>
+            </Link>
+
+            <Link href={"/pages/how"}>
+              <div className=" ">How it Works</div>
+            </Link>
+
+            <Link href={"/pages/contact"}>
+              <div className=" ">Contact Us</div>
+            </Link>
           </div>
           <div className=" flex flex-col items-center md:items-start gap-y-3 text-gray-500">
             <div className=" font-semibold text-gray-600">Support</div>
-            <div className=" ">Support Center</div>
-            <div className=" ">24H Service</div>
-            <div className=" ">Quick Chat</div>
+            <Link href={"/pages/support"}>
+              <div className=" ">Support Center</div>
+            </Link>
+            <Link href={"/pages/support"}>
+              <div className=" ">24H Service</div>
+            </Link>
+            <Link href={"/pages/chat"}>
+              <div className=" ">Quick Chat</div>
+            </Link>
           </div>
           <div className=" flex flex-col items-center md:items-start gap-y-3 text-gray-500">
             <div className=" font-semibold text-gray-600">Contact</div>
-            <div className=" ">WhatsApp</div>
-            <div className=" ">24H Support</div>
+            <Link href={"/pages/whatsapp"}>
+              <div className=" ">WhatsApp</div>
+            </Link>
+            <Link href={"/pages/support"}>
+              <div className=" ">24H Support</div>
+            </Link>
           </div>
         </div>
       </section>

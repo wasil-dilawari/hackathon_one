@@ -1,8 +1,10 @@
-import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import promoImage1 from "public/promo_img_1.webp";
-import promoImage2 from "public/promo_img_2.webp";
-import promoImage3 from "public/promo_img_3.webp";
+
+import { Badge } from "@/components/ui/badge";
+
+import promoImage1 from "public/images/products/promo_img_1.webp";
+import promoImage2 from "public/images/products/promo_img_2.webp";
+import promoImage3 from "public/images/products/promo_img_3.webp";
 
 export default function Promotions() {
   return (

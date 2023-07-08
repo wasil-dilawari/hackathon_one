@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Image as IImage } from "sanity";
 import { urlForImage } from "../../sanity/lib/image";
 import { FC } from "react";
+import Link from "next/link";
 
 interface Iproduct {
   _id: string;
@@ -23,19 +24,21 @@ export const ProductCard: FC<{ product: any }> = async ({ product }) => {
     });
 
     const result = await res.json();
-    console.log(result);
+    // console.log(result);
   };
 
   return (
     <>
-      <Image
-        src={urlForImage(product.primaryImage).url()}
-        alt={product.title}
-        width={200}
-        height={300}
-      />
-      <div className="text-center">{product.title}</div>
-      <div className="text-center">${product.price}</div>
+      <Link href={`product/${product._id}`}>
+        <Image
+          src={urlForImage(product.primaryImage).url()}
+          alt={product.title}
+          width={200}
+          height={300}
+        />
+        <div className="text-center">{product.title}</div>
+        <div className="text-center">${product.price}</div>
+      </Link>
       <div className=" flex justify-center">
         <button
           className=" bg-slate-300 rounded-full px-3 py-1"

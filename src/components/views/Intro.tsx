@@ -1,6 +1,9 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import introImage from "public/intro_img.webp";
+import Link from "next/link";
+
+import { Button } from "@/components/ui/button";
+
+import introImage from "public/images/products/intro_img.webp";
 
 export default function Intro() {
   return (
@@ -66,10 +69,12 @@ export default function Intro() {
                 The Natural color is the actual natural color of the fiber,
                 undyed and 100% traceable.
               </div>
-              <Button className=" bg-black text-white rounded-none px-6 py-8 mt-4">
-                See All <br />
-                Products
-              </Button>
+              <Link href={"All"}>
+                <Button className=" bg-black text-white rounded-none px-6 py-8 mt-4">
+                  See All <br />
+                  Products
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
