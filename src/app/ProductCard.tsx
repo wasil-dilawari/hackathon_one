@@ -14,7 +14,7 @@ interface Iproduct {
   productType: string;
 }
 
-const ProductCard: FC<{ product: any }> = async ({ product }) => {
+const ProductCard: FC<{ product: Iproduct }> = async ({ product }) => {
   const handleAddToCart = async () => {
     const res = await fetch("/api/cart", {
       method: "POST",
