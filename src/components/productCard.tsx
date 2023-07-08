@@ -14,7 +14,7 @@ interface Iproduct {
   productType: string;
 }
 
-export const ProductCard: FC<{ product: any }> = async ({ product }) => {
+const ProductCard: FC<{ product: any }> = async ({ product }) => {
   const handleAddToCart = async () => {
     const res = await fetch("/api/cart", {
       method: "POST",
@@ -50,3 +50,5 @@ export const ProductCard: FC<{ product: any }> = async ({ product }) => {
     </>
   );
 };
+
+export default ProductCard;
