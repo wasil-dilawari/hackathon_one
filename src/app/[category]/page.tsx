@@ -1,9 +1,6 @@
-import Link from "next/link";
 import { client } from "../../../sanity/lib/client";
-import Image from "next/image";
 import { Image as IImage } from "sanity";
-import { urlForImage } from "../../../sanity/lib/image";
-import { ProductCard } from "../component/productCard";
+import { ProductCard } from "@/components/productCard";
 
 async function getCategoryID(categoryTitle: string) {
   const res = await client.fetch(
@@ -73,12 +70,12 @@ export default async function categoryPage({
   // const data: Iproduct[] = await getProductData(catID);
 
   return (
-    <div className=" flex flex-col mx-6 ">
-      <div className=" text-gray-300 font-semibold text-9xl text-left">
+    <div className=" flex flex-col ">
+      <div className=" text-gray-200 font-semibold text-5xl md:text-9xl mb-4 text-center lg:text-left">
         {params.category === "All" ? "All Products" : params.category}
       </div>
       <div className=" flex flex-col items-center">
-        <div className=" grid grid-cols-[repeat(3,auto)] justify-center gap-10">
+        <div className=" grid grid-cols-1 md:grid-cols-[repeat(3,auto)] justify-center gap-10">
           {data.length === 0 ? (
             <div>No products found in {params.category}</div>
           ) : (

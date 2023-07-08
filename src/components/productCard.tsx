@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Image as IImage } from "sanity";
-import { urlForImage } from "../../../sanity/lib/image";
+import { urlForImage } from "../../sanity/lib/image";
 import { FC } from "react";
 
 interface Iproduct {

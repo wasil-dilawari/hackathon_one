@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { client } from "../../../sanity/lib/client";
+import { client } from "../../sanity/lib/client";
 import Image from "next/image";
 import logoImage from "../../../public/logo.webp";
 import {

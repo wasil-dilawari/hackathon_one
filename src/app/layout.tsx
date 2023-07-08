@@ -1,5 +1,4 @@
-import Footer from "./component/footer";
-// import Header from "./component/header";
+import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import "@/app/globals.css";
 

@@ -22,17 +22,17 @@ export default async function Products() {
   };
 
   return (
-    <section className=" mt-6">
+    <section className=" mt-20">
       <div className=" flex flex-col items-center gap-4">
-        <div className=" text-blue-600 font-semibold text-xs tracking-wider">
+        <div className=" text-blue-600 font-semibold text-xs tracking-wider text-center">
           PRODUCTS
         </div>
-        <h2 className="text-3xl font-bold">Check What We Have</h2>
-        <div className=" flex justify-center items-start">
+        <h2 className="text-3xl font-bold text-center">Check What We Have</h2>
+        <div className=" flex flex-col gap-8 md:gap-0 md:flex-row justify-center items-start">
           {data.map((product: Iproduct) => (
             <div
               key={product._id}
-              className=" transition ease-in-out hover:scale-110 duration-300"
+              className=" lg:transition lg:ease-in-out lg:hover:scale-110 lg:duration-300"
             >
               <div>
                 <Image
@@ -42,7 +42,9 @@ export default async function Products() {
                   height={400}
                 />
               </div>
-              <h2 className=" font-semibold text-lg mt-4">{product.title}</h2>
+              <h2 className=" font-semibold text-lg mt-1 md:mt-4">
+                {product.title}
+              </h2>
               <p className=" font-semibold text-lg ">${product.price}</p>
             </div>
           ))}
