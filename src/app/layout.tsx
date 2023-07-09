@@ -1,5 +1,7 @@
-import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import Providers from "@/components/redux/Provider";
+
 import "@/app/globals.css";
 
 import { Sora } from "next/font/google";
@@ -19,13 +21,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={sora.className}>
-        <header>
-          <Header />
-        </header>
-        <main className=" ">{children}</main>
-        <footer>
-          <Footer />
-        </footer>
+        <Providers>
+          <header>
+            <Header />
+          </header>
+          <main className=" ">{children}</main>
+          <footer>
+            <Footer />
+          </footer>
+        </Providers>
       </body>
     </html>
   );

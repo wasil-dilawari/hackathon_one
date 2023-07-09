@@ -4,7 +4,7 @@ import Image from "next/image";
 import { urlForImage } from "../../../../sanity/lib/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import ButtonAddProduct from "@/components/ui/BtnProdPageAddProduct";
+import ButtonAddProduct from "@/components/ui/BtnAddToCart";
 
 async function getProductData(id: string) {
   var res = await client.fetch(
@@ -66,7 +66,7 @@ export default async function ProductPage({
             width={600}
           />
         </div>
-        <div className=" pt-8 lg:pt-14 pl-4">
+        <div className=" pt-8 lg:pt-14 px-4">
           <div className=" font-normal text-3xl ">{data[0].title}</div>
           <div className=" font-semibold text-2xl text-gray-400 ">
             {data[0].productType.title}
@@ -100,12 +100,14 @@ export default async function ProductPage({
           </div>
         </div>
       </div>
-      <div className=" grid grid-cols-[30%,1fr] gap-10 mx-20 px-20 bg-white mt-20 pb-20">
-        <div className=" col-span-2 py-10 border-b border-black flex flex-col justify-center">
+      <div className=" grid grid-cols-1 md:grid-cols-[30%,1fr] gap-10 md:mx-20 px-8 md:px-20 bg-white mt-20 pb-20">
+        <div className=" md:col-span-2 py-10 border-b border-black flex flex-col justify-center">
           <div className=" font-bold text-2xl z-10 absolute">
             Product Information
           </div>
-          <div className=" font-bold text-8xl text-gray-100 ">Overview</div>
+          <div className=" font-bold text-6xl md:text-8xl text-gray-100 ">
+            Overview
+          </div>
         </div>
         <div className=" font-bold text-gray-500 text-base">
           PRODUCT DETAILS

@@ -14,13 +14,6 @@ interface Iproduct {
 
 export default async function Products() {
   const data: Iproduct[] = await getProductData();
-  var settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-  };
 
   return (
     <section className=" px-10 mt-20 ">
