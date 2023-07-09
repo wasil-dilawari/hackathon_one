@@ -3,6 +3,7 @@ import { client } from "../../../sanity/lib/client";
 import { urlForImage } from "../../../sanity/lib/image";
 
 import { Image as IImage } from "sanity";
+import Link from "next/link";
 
 interface Iproduct {
   _id: string;
@@ -22,7 +23,7 @@ export default async function Products() {
   };
 
   return (
-    <section className=" mt-20">
+    <section className=" px-10 mt-20 ">
       <div className=" flex flex-col items-center gap-4">
         <div className=" text-blue-600 font-semibold text-xs tracking-wider text-center">
           PRODUCTS
@@ -34,18 +35,20 @@ export default async function Products() {
               key={product._id}
               className=" lg:transition lg:ease-in-out lg:hover:scale-110 lg:duration-300"
             >
-              <div>
-                <Image
-                  src={urlForImage(product.primaryImage).url()}
-                  alt={product.title}
-                  width={300}
-                  height={400}
-                />
-              </div>
-              <h2 className=" font-semibold text-lg mt-1 md:mt-4">
-                {product.title}
-              </h2>
-              <p className=" font-semibold text-lg ">${product.price}</p>
+              <Link href={`/product/${product._id}`}>
+                <div>
+                  <Image
+                    src={urlForImage(product.primaryImage).url()}
+                    alt={product.title}
+                    width={300}
+                    height={400}
+                  />
+                </div>
+                <h2 className=" font-semibold text-lg mt-1 md:mt-4">
+                  {product.title}
+                </h2>
+                <p className=" font-semibold text-lg ">${product.price}</p>
+              </Link>
             </div>
           ))}
         </div>

@@ -8,7 +8,7 @@ import promoImage3 from "public/images/products/promo_img_3.webp";
 
 export default function Promotions() {
   return (
-    <section className=" mt-20">
+    <section className=" px-10 mt-20 ">
       <div className=" flex flex-col items-center gap-4">
         <div className=" text-blue-600 font-semibold text-xs tracking-wider text-center">
           PROMOTIONS

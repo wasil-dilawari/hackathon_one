@@ -22,7 +22,7 @@ export default function RootLayout({
         <header>
           <Header />
         </header>
-        <main className=" mx-10">{children}</main>
+        <main className=" ">{children}</main>
         <footer>
           <Footer />
         </footer>

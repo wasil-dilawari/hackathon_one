@@ -1,4 +1,4 @@
-import ProductCard from "@/app/ProductCard";
+import ProductCard from "@/components/ui/ProductCard";
 import { client } from "../../../sanity/lib/client";
 import { Image as IImage } from "sanity";
 
@@ -55,7 +55,7 @@ interface Iproduct {
   title: string;
   price: number;
   primaryImage: IImage;
-  productType: string;
+  productType: { title: string };
 }
 
 export default async function categoryPage({

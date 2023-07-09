@@ -4,7 +4,7 @@ import Image from "next/image";
 import { urlForImage } from "../../../../sanity/lib/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ShoppingCart } from "lucide-react";
+import ButtonAddProduct from "@/components/ui/BtnProdPageAddProduct";
 
 async function getProductData(id: string) {
   var res = await client.fetch(
@@ -41,11 +41,23 @@ export default async function ProductPage({
   params: { id: string };
 }) {
   const data: Iproduct[] = await getProductData(params.id);
-  // console.log(data);
+  // console.log("-------->" + data[0].title + "<--------");
+
+  // const handleAddToCart = async () => {
+  //   const res = await fetch("/api/cart", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       product_id: data[0]._id,
+  //     }),
+  //   });
+
+  //   const result = await res.json();
+  //   console.log("Result: " + result);
+  // };
 
   return (
-    <section className=" flex flex-col ">
-      <div className=" grid grid-cols-1 md:grid-cols-[70%,1fr] max-w-5xl">
+    <section className=" flex flex-col bg-gray-50 py-20">
+      <div className=" grid grid-cols-1 md:grid-cols-[70%,1fr] max-w-5xl ">
         <div className=" flex justify-end ">
           <Image
             src={urlForImage(data[0].primaryImage).url()}
@@ -83,11 +95,27 @@ export default async function ProductPage({
             />
           </div>
           <div className=" flex flex-col lg:flex-row lg:items-center gap-2 md:gap-6 mt-4 md:mt-8">
-            <Button className=" rounded-none px-4 py-6">
-              <ShoppingCart className=" mr-2" /> Add to Cart
-            </Button>
+            <ButtonAddProduct _id={params.id} />{" "}
             <div className=" font-bold text-2xl ">${data[0].price}.00</div>
           </div>
+        </div>
+      </div>
+      <div className=" grid grid-cols-[30%,1fr] gap-10 mx-20 px-20 bg-white mt-20 pb-20">
+        <div className=" col-span-2 py-10 border-b border-black flex flex-col justify-center">
+          <div className=" font-bold text-2xl z-10 absolute">
+            Product Information
+          </div>
+          <div className=" font-bold text-8xl text-gray-100 ">Overview</div>
+        </div>
+        <div className=" font-bold text-gray-500 text-base">
+          PRODUCT DETAILS
+        </div>
+        <div className=" font-light text-justify tracking-wider ">
+          {data[0].details}
+        </div>
+        <div className=" font-bold text-gray-500 text-base">PRODUCT CARE</div>
+        <div className=" font-light text-justify tracking-wider ">
+          {data[0].careInstructions}
         </div>
       </div>
     </section>

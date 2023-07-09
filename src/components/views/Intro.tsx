@@ -7,14 +7,14 @@ import introImage from "public/images/products/intro_img.webp";
 
 export default function Intro() {
   return (
-    <section className=" mt-20">
+    <section className=" mt-20 ">
       <div className=" lg:grid lg:grid-cols-2">
         <div className=" "></div>
         <div className=" text-center lg:text-left text-5xl font-bold tracking-tight lg:px-16">
           Unique and Authentic Vintage Designer Jewellery
         </div>
       </div>
-      <div className=" hidden md:block bg-gray-50 text-gray-200 text-8xl font-extrabold tracking-widest -mx-10 py-20 px-10 md:px-20 lg:px-32 -z-10 absolute">
+      <div className=" hidden md:block bg-gray-50 text-gray-200 text-8xl font-extrabold tracking-widest py-20 px-10 md:px-20 lg:px-32 -z-10 absolute">
         <div className=" lg:grid lg:grid-cols-2">
           <div className=" pb-20">Different from Others</div>
           <div></div>

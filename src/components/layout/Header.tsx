@@ -18,7 +18,7 @@ export default async function Header() {
   const data: Icategory[] = await getCategoryData();
 
   return (
-    <div>
+    <header className=" ">
       <div className=" flex flex-col md:flex-row justify-between items-center mx-4 my-4 gap-y-2 lg:mx-10 lg:my-8 ">
         <Link href="/">
           <Image src={logoImage} alt="eStore Logo" />
@@ -49,6 +49,6 @@ export default async function Header() {
           <ShoppingCart className=" h-6 w-6 text-gray-700" />
         </div>
       </div>
-    </div>
+    </header>
   );
 }

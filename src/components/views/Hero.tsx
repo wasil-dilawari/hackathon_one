@@ -14,7 +14,7 @@ import logoInstyle from "public/images/logos/br_instyle.webp";
 
 export default function Hero() {
   return (
-    <section>
+    <section className=" px-10 ">
       <div className=" flex flex-col-reverse md:flex-row justify-center items-center gap-y-10 md:gap-x-10">
         <div className=" flex-1">
           <Badge className=" rounded-md bg-blue-100 hover:bg-blue-100 text-[blue] py-2 px-4 text-sm justify-center">
