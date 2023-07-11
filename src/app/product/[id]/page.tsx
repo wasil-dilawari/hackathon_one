@@ -2,9 +2,9 @@ import { client } from "../../../../sanity/lib/client";
 import { Image as IImage } from "sanity";
 import Image from "next/image";
 import { urlForImage } from "../../../../sanity/lib/image";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import ButtonAddProduct from "@/components/ui/BtnAddToCart";
+import ButtonAddProduct from "@/components/custom/BtnAddToCart";
+import ProdVariants from "@/components/custom/ProdVariants";
+import ProdQty from "@/components/custom/ProdQty";
 
 async function getProductData(id: string) {
   var res = await client.fetch(
@@ -71,29 +71,8 @@ export default async function ProductPage({
           <div className=" font-semibold text-2xl text-gray-400 ">
             {data[0].productType.title}
           </div>
-          <div className=" font-bold text-base pt-4 md:pt-8 tracking-wide">
-            SELECT SIZE
-          </div>
-          <div className=" flex gap-4 pt-2 md:pt-4">
-            {data[0].sizes.map((size) => (
-              <Button
-                variant="outline"
-                className=" rounded-full hover:shadow-xl hover:bg-white text-gray-500 font-bold"
-                key={size}
-              >
-                {size}
-              </Button>
-            ))}
-          </div>
-          <div className=" flex items-center font-bold text-base pt-4 md:pt-8 tracking-wide">
-            <div>Quantity:</div>
-            <Input
-              type="text"
-              size={1}
-              defaultValue={1}
-              className=" font-light text-gray-500 border border-gray-400 rounded-none w-fit ml-2"
-            />
-          </div>
+          <ProdVariants sizes={data[0].sizes} />
+          <ProdQty />
           <div className=" flex flex-col lg:flex-row lg:items-center gap-2 md:gap-6 mt-4 md:mt-8">
             <ButtonAddProduct _id={params.id} />{" "}
             <div className=" font-bold text-2xl ">${data[0].price}.00</div>

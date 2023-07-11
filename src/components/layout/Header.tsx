@@ -5,8 +5,8 @@ import logoImage from "public/images/logos/logo.webp";
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
-import CategoryMenuList from "@/components/ui/CategoryMenuList";
-import IconHeaderCart from "@/components/ui/IconHeaderCart";
+import CategoryMenuList from "@/components/custom/CategoryMenuList";
+import IconHeaderCart from "@/components/custom/IconHeaderCart";
 
 export default function Header() {
   return (
