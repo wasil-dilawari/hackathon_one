@@ -27,7 +27,7 @@ const ProductCard: FC<{ product: Iproduct }> = async ({ product }) => {
           {product.productType.title}
         </div>
         <div className=" font-bold text-xl mt-2 tracking-wider">
-          ${product.price}
+          ${product.price.toFixed(2)}
         </div>
       </Link>
     </>

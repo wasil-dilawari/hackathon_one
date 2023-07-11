@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { CartActions } from "@/store/slice/cartSlice";
 import toast from "react-hot-toast";
 
-export default function ButtonAddProduct(id: { _id: string }) {
+export default function BtnAddToCart(id: { _id: string }) {
   // console.log(id._id);
   const dispatch = useDispatch();
 

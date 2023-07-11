@@ -2,7 +2,7 @@ import { client } from "../../../../sanity/lib/client";
 import { Image as IImage } from "sanity";
 import Image from "next/image";
 import { urlForImage } from "../../../../sanity/lib/image";
-import ButtonAddProduct from "@/components/custom/BtnAddToCart";
+import BtnAddToCart from "@/components/custom/BtnAddToCart";
 import ProdVariants from "@/components/custom/ProdVariants";
 import ProdQty from "@/components/custom/ProdQty";
 
@@ -73,9 +73,11 @@ export default async function ProductPage({
           </div>
           <ProdVariants sizes={data[0].sizes} />
           <ProdQty />
-          <div className=" flex flex-col lg:flex-row lg:items-center gap-2 md:gap-6 mt-4 md:mt-8">
-            <ButtonAddProduct _id={params.id} />{" "}
-            <div className=" font-bold text-2xl ">${data[0].price}.00</div>
+          <div className=" flex flex-col lg:flex-row lg:items-center gap-4 md:gap-6 mt-8 ">
+            <BtnAddToCart _id={params.id} />
+            <div className=" font-bold text-2xl lg:ml-4 ">
+              ${data[0].price.toFixed(2)}
+            </div>
           </div>
         </div>
       </div>
