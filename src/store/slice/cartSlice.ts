@@ -2,20 +2,31 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface CartState {
-  productIDs: Array<string>;
-  totalAmount: number;
-  totalQty: number;
+  productID: string;
+  productVariant: string;
+  productQty: number;
+  cartSize: number;
+  shoppingCart: shoppingItem[];
+}
+
+export interface shoppingItem {
+  productID: string;
+  productVariant: string;
+  productQty: number;
 }
 
 export interface PayloadData {
-  _id: string;
-  qty: number;
+  productID?: string;
+  productVariant?: string;
+  productQty?: number;
 }
 
 const initialState: CartState = {
-  productIDs: [],
-  totalAmount: 0,
-  totalQty: 0,
+  productID: "",
+  productVariant: "",
+  productQty: 1,
+  cartSize: 0,
+  shoppingCart: [],
 };
 
 export const cartSlice = createSlice({
@@ -23,13 +34,48 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, actions: PayloadAction<PayloadData>) => {
-      state.totalQty += actions.payload.qty;
+      if (actions.payload.productID) {
+        state.cartSize += state.productQty;
+        const existingItemIndex = state.shoppingCart.findIndex(
+          (item) =>
+            item.productID === actions.payload.productID &&
+            item.productVariant === state.productVariant
+        );
+        if (existingItemIndex !== -1) {
+          state.shoppingCart[existingItemIndex].productQty += state.productQty;
+        } else {
+          state.shoppingCart.push({
+            productID: actions.payload.productID,
+            productVariant: state.productVariant,
+            productQty: state.productQty,
+          });
+        }
+      }
     },
     removeFromCart: (state, actions: PayloadAction<PayloadData>) => {
-      state.totalQty -= actions.payload.qty;
+      if (actions.payload.productQty) {
+        state.cartSize -= actions.payload.productQty;
+      }
     },
     clearCart: (state) => {
       state = initialState;
+    },
+    clearVariant: (state) => {
+      state.productVariant = "";
+    },
+    selectVariant: (state, actions: PayloadAction<PayloadData>) => {
+      if (actions.payload.productVariant) {
+        state.productVariant = actions.payload.productVariant;
+      }
+    },
+    increaseQty: (state) => {
+      state.productQty++;
+    },
+    decreaseQty: (state) => {
+      state.productQty--;
+    },
+    resetQty: (state) => {
+      state.productQty = 1;
     },
   },
 });

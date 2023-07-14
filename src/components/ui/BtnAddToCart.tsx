@@ -4,12 +4,10 @@ import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { CartActions } from "@/store/slice/cartSlice";
-import toast from "react-hot-toast";
 
-export default function BtnAddToCart(id: { _id: string }) {
+export default function ButtonAddProduct(id: { _id: string }) {
   // console.log(id._id);
   const dispatch = useDispatch();
-
   const handleAddToCart = async () => {
     const res = await fetch("/api/cart", {
       method: "POST",
@@ -21,10 +19,8 @@ export default function BtnAddToCart(id: { _id: string }) {
     const result = await res.json();
     // console.log("Result: " + result);
   };
-
   const addItem = () => {
-    dispatch(CartActions.addToCart({ productID: id._id }));
-    toast.success("Product Added to Cart");
+    dispatch(CartActions.addToCart({}));
   };
 
   return (

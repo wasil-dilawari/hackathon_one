@@ -2,10 +2,18 @@
 
 // import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { CartActions } from "@/store/slice/cartSlice";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 export default function ProdQty() {
+  const dispatch = useDispatch();
+  const [firstRender, setfirstRender] = useState(true);
+  if (firstRender) {
+    dispatch(CartActions.resetQty());
+  }
+
   const [qty, setQty] = useState(1);
   return (
     <>
@@ -16,7 +24,9 @@ export default function ProdQty() {
             className=" bg-gray-200 rounded-full hover:bg-gray-200 text-gray-800 h-8 w-8 text-sm hover:ring-1 ring-gray-700 lg:ml-4 mr-4"
             onClick={() => {
               if (qty > 1) {
+                setfirstRender(false);
                 setQty(qty - 1);
+                dispatch(CartActions.decreaseQty());
               } else {
                 toast.error("Quantity cannot be less than 1", {
                   iconTheme: {
@@ -40,7 +50,9 @@ export default function ProdQty() {
             className=" bg-gray-200 rounded-full hover:bg-gray-200 text-gray-800 h-8 w-8 text-sm hover:ring-1 ring-gray-700 ml-4"
             onClick={() => {
               if (qty < 10) {
+                setfirstRender(false);
                 setQty(qty + 1);
+                dispatch(CartActions.increaseQty());
               } else {
                 toast.error("Quantity cannot be more than 10", {
                   iconTheme: {

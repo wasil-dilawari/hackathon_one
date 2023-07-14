@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
 export default function IconHeaderCart() {
-  const cartQty = useSelector((state: RootState) => state.cart.totalQty);
+  const cartQty = useSelector((state: RootState) => state.cart.cartSize);
 
   return (
     <div className=" flex items-center justify-center h-10 w-10 bg-gray-200 rounded-full relative">
