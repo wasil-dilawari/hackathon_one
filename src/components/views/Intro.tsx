@@ -59,22 +59,24 @@ export default function Intro() {
         </div>
         <div className=" lg:ml-10 h-full pt-10 lg:pt-0">
           <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[60%,40%] h-full gap-10">
-            <div className=" ">
+            <div className=" flex justify-center items-center ">
               <Image src={introImage} alt="Different from Others" />
             </div>
             <div>
-              <div className=" py-2 text-justify font-light">
+              <div className=" px-8 md:px-0 py-2 text-justify font-light">
                 This piece is ethically crafted in our small family-owned
                 workshop in Peru with unmatched attention to detail and care.
                 The Natural color is the actual natural color of the fiber,
                 undyed and 100% traceable.
               </div>
-              <Link href={"All"}>
-                <Button className=" bg-black text-white rounded-none px-6 py-8 mt-4">
-                  See All <br />
-                  Products
-                </Button>
-              </Link>
+              <div className=" flex justify-center md:justify-start flex-1 mx-8 md:mx-0">
+                <Link href={"All"}>
+                  <Button className=" bg-black text-white rounded-none px-6 py-8 mt-4">
+                    See All <br />
+                    Products
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

@@ -2,19 +2,30 @@
 
 import { Button } from "@/components/ui/button";
 import { ShoppingCart } from "lucide-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { CartActions } from "@/store/slice/cartSlice";
 import toast from "react-hot-toast";
+import { RootState } from "@/store/store";
 
-export default function BtnAddToCart(id: { _id: string }) {
+interface IpassOnData {
+  productID: string;
+  productTitle: string;
+  productType: string;
+  productPrice: number;
+  productImage: string;
+}
+
+export default function BtnAddToCart(data: IpassOnData) {
   // console.log(id._id);
   const dispatch = useDispatch();
-
+  const variantCheck = useSelector(
+    (state: RootState) => state.cart.productVariant
+  );
   const handleAddToCart = async () => {
     const res = await fetch("/api/cart", {
       method: "POST",
       body: JSON.stringify({
-        product_id: id._id,
+        product_id: data.productID,
       }),
     });
 
@@ -23,8 +34,14 @@ export default function BtnAddToCart(id: { _id: string }) {
   };
 
   const addItem = () => {
-    dispatch(CartActions.addToCart({ productID: id._id }));
-    toast.success("Product Added to Cart");
+    // console.log(variantCheck);
+
+    if (variantCheck === "") {
+      toast.error("Please select Size");
+    } else {
+      dispatch(CartActions.addToCart(data));
+      toast.success("Product Added to Cart");
+    }
   };
 
   return (

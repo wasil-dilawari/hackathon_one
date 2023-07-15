@@ -13,12 +13,20 @@ export interface shoppingItem {
   productID: string;
   productVariant: string;
   productQty: number;
+  productTitle: string;
+  productType: string;
+  productPrice: number;
+  productImage: string;
 }
 
 export interface PayloadData {
   productID?: string;
   productVariant?: string;
   productQty?: number;
+  productTitle?: string;
+  productType?: string;
+  productPrice?: number;
+  productImage?: string;
 }
 
 const initialState: CartState = {
@@ -34,7 +42,16 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, actions: PayloadAction<PayloadData>) => {
-      if (actions.payload.productID) {
+      // console.log(actions.payload);
+      // console.log(actions.payload.productID);
+      if (
+        actions.payload.productID &&
+        actions.payload.productTitle &&
+        actions.payload.productType &&
+        actions.payload.productPrice &&
+        actions.payload.productImage
+      ) {
+        // console.log(actions.payload);
         state.cartSize += state.productQty;
         const existingItemIndex = state.shoppingCart.findIndex(
           (item) =>
@@ -48,6 +65,10 @@ export const cartSlice = createSlice({
             productID: actions.payload.productID,
             productVariant: state.productVariant,
             productQty: state.productQty,
+            productTitle: actions.payload.productTitle,
+            productType: actions.payload.productType,
+            productPrice: actions.payload.productPrice,
+            productImage: actions.payload.productImage,
           });
         }
       }

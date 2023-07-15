@@ -27,7 +27,9 @@ export default function Header() {
             />
           </div>
         </div>
-        <IconHeaderCart />
+        <Link href={"/cart"}>
+          <IconHeaderCart />
+        </Link>
       </div>
     </header>
   );

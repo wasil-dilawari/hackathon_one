@@ -21,7 +21,7 @@ async function getProductData(id: string) {
       }`
   );
 
-  return res;
+  return res[0];
 }
 
 interface Iproduct {
@@ -35,12 +35,28 @@ interface Iproduct {
   details: string;
 }
 
+interface IpassOnData {
+  productID: string;
+  productTitle: string;
+  productType: string;
+  productPrice: number;
+  productImage: string;
+}
+
 export default async function ProductPage({
   params,
 }: {
   params: { id: string };
 }) {
-  const data: Iproduct[] = await getProductData(params.id);
+  const data: Iproduct = await getProductData(params.id);
+  const imgURL: string = urlForImage(data.primaryImage).url();
+  const passOnData: IpassOnData = {
+    productID: data._id,
+    productTitle: data.title,
+    productType: data.productType.title,
+    productPrice: data.price,
+    productImage: imgURL,
+  };
   // console.log("-------->" + data[0].title + "<--------");
 
   // const handleAddToCart = async () => {
@@ -59,24 +75,25 @@ export default async function ProductPage({
     <section className=" flex flex-col bg-gray-50 py-20">
       <div className=" grid grid-cols-1 md:grid-cols-[70%,1fr] max-w-5xl ">
         <div className=" flex justify-end ">
-          <Image
-            src={urlForImage(data[0].primaryImage).url()}
-            alt={data[0].title}
-            height={400}
-            width={600}
-          />
+          <Image src={imgURL} alt={data.title} height={400} width={600} />
         </div>
         <div className=" pt-8 lg:pt-14 px-4">
-          <div className=" font-normal text-3xl ">{data[0].title}</div>
+          <div className=" font-normal text-3xl ">{data.title}</div>
           <div className=" font-semibold text-2xl text-gray-400 ">
-            {data[0].productType.title}
+            {data.productType.title}
           </div>
-          <ProdVariants sizes={data[0].sizes} />
+          <ProdVariants sizes={data.sizes} />
           <ProdQty />
           <div className=" flex flex-col lg:flex-row lg:items-center gap-4 md:gap-6 mt-8 ">
-            <BtnAddToCart _id={params.id} />
+            <BtnAddToCart
+              productID={data._id}
+              productTitle={data.title}
+              productType={data.productType.title}
+              productPrice={data.price}
+              productImage={imgURL}
+            />
             <div className=" font-bold text-2xl lg:ml-4 ">
-              ${data[0].price.toFixed(2)}
+              ${data.price.toFixed(2)}
             </div>
           </div>
         </div>
@@ -94,11 +111,11 @@ export default async function ProductPage({
           PRODUCT DETAILS
         </div>
         <div className=" font-light text-justify tracking-wider ">
-          {data[0].details}
+          {data.details}
         </div>
         <div className=" font-bold text-gray-500 text-base">PRODUCT CARE</div>
         <div className=" font-light text-justify tracking-wider ">
-          {data[0].careInstructions}
+          {data.careInstructions}
         </div>
       </div>
     </section>
