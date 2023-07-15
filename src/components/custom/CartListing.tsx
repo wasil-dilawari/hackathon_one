@@ -82,7 +82,7 @@ export default function CartListing() {
           </div>
           <div className=" flex justify-between">
             <div className=" p-2 ">Sub Total</div>
-            <div className=" p-2 ">${subTotal}</div>
+            <div className=" p-2 ">${subTotal.toLocaleString()}</div>
           </div>
           <div className=" flex justify-center">
             <Button className=" rounded-none px-6 py-6">
