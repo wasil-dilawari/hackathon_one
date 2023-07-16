@@ -50,13 +50,13 @@ export default async function ProductPage({
 }) {
   const data: Iproduct = await getProductData(params.id);
   const imgURL: string = urlForImage(data.primaryImage).url();
-  const passOnData: IpassOnData = {
-    productID: data._id,
-    productTitle: data.title,
-    productType: data.productType.title,
-    productPrice: data.price,
-    productImage: imgURL,
-  };
+  // const passOnData: IpassOnData = {
+  //   productID: data._id,
+  //   productTitle: data.title,
+  //   productType: data.productType.title,
+  //   productPrice: data.price,
+  //   productImage: imgURL,
+  // };
   // console.log("-------->" + data[0].title + "<--------");
 
   // const handleAddToCart = async () => {

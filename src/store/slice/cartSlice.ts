@@ -29,6 +29,11 @@ export interface PayloadData {
   productImage?: string;
 }
 
+export interface CartUpdatePayloadData {
+  itemIndex: number;
+  newQty: number;
+}
+
 const initialState: CartState = {
   productID: "",
   productVariant: "",
@@ -42,8 +47,6 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     addToCart: (state, actions: PayloadAction<PayloadData>) => {
-      // console.log(actions.payload);
-      // console.log(actions.payload.productID);
       if (
         actions.payload.productID &&
         actions.payload.productTitle &&
@@ -51,7 +54,6 @@ export const cartSlice = createSlice({
         actions.payload.productPrice &&
         actions.payload.productImage
       ) {
-        // console.log(actions.payload);
         state.cartSize += state.productQty;
         const existingItemIndex = state.shoppingCart.findIndex(
           (item) =>
@@ -74,8 +76,20 @@ export const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, actions: PayloadAction<PayloadData>) => {
-      if (actions.payload.productQty) {
-        state.cartSize -= actions.payload.productQty;
+      const { productID, productVariant } = actions.payload;
+
+      if (productID && productVariant) {
+        const itemIndex = state.shoppingCart.findIndex(
+          (item) =>
+            item.productID === productID &&
+            item.productVariant === productVariant
+        );
+
+        if (itemIndex !== -1) {
+          const removedItem = state.shoppingCart[itemIndex];
+          state.cartSize -= removedItem.productQty;
+          state.shoppingCart.splice(itemIndex, 1);
+        }
       }
     },
     clearCart: (state) => {
@@ -89,11 +103,20 @@ export const cartSlice = createSlice({
         state.productVariant = actions.payload.productVariant;
       }
     },
-    increaseQty: (state) => {
-      state.productQty++;
+    updateQty: (state, actions: PayloadAction<number>) => {
+      state.productQty = actions.payload;
     },
-    decreaseQty: (state) => {
-      state.productQty--;
+    updateQtyInCart: (state, action: PayloadAction<CartUpdatePayloadData>) => {
+      const { itemIndex, newQty } = action.payload;
+      if (itemIndex >= 0 && itemIndex < state.shoppingCart.length) {
+        state.shoppingCart[itemIndex].productQty = newQty;
+      }
+    },
+    updateTotalQuantity: (state) => {
+      state.cartSize = state.shoppingCart.reduce(
+        (total, item) => total + item.productQty,
+        0
+      );
     },
     resetQty: (state) => {
       state.productQty = 1;

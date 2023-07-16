@@ -1,16 +1,57 @@
 "use client";
 
 import { RootState } from "@/store/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { ShoppingBag, Trash2 } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import Link from "next/link";
+import { CartActions } from "@/store/slice/cartSlice";
+import toast from "react-hot-toast";
 
 export default function CartListing() {
+  const dispatch = useDispatch();
+
   const myCart = useSelector((state: RootState) => state.cart.shoppingCart);
   const cartSize = useSelector((state: RootState) => state.cart.cartSize);
-  //   let subTotal = 0;
+
+  const handleDeleteItem = (productID: string, productVariant: string) => {
+    dispatch(
+      CartActions.removeFromCart({
+        productID: productID,
+        productVariant: productVariant,
+      })
+    );
+  };
+
+  const handleQuantityChange = (itemIndex: number, newQty: number) => {
+    if (newQty >= 1 && newQty <= 10) {
+      dispatch(
+        CartActions.updateQtyInCart({
+          itemIndex: itemIndex,
+          newQty: newQty,
+        })
+      );
+      updateTotalQuantity();
+    } else {
+      const errorMessage =
+        newQty < 1
+          ? "Quantity cannot be less than 1"
+          : "Quantity cannot be more than 10";
+      toast.error(errorMessage, {
+        iconTheme: {
+          primary: "#FFC300",
+          secondary: "#FFFAEE",
+        },
+      });
+    }
+  };
+
+  const updateTotalQuantity = () => {
+    // const totalQty = myCart.reduce((total, item) => total + item.productQty, 0);
+    dispatch(CartActions.updateTotalQuantity());
+  };
+
   if (myCart.length < 1) {
     return (
       <div className=" flex flex-col items-center justify-center">
@@ -29,7 +70,7 @@ export default function CartListing() {
     return (
       <div className=" grid md:grid-cols-[70%,1fr] lg:px-20 md:gap-4">
         <div className=" flex flex-col gap-8 ">
-          {myCart.map((item) => (
+          {myCart.map((item, index) => (
             <div
               key={item.productID}
               className=" grid grid-cols-[auto,auto,1fr] "
@@ -65,10 +106,33 @@ export default function CartListing() {
               </div>
               <div className=" flex flex-col ">
                 <div className=" flex justify-end items-start">
-                  <Trash2 />
+                  <Button
+                    className=" bg-gray-50 rounded-full hover:shadow-md hover:bg-white h-8 w-8 px-1 py-1"
+                    onClick={() =>
+                      handleDeleteItem(item.productID, item.productVariant)
+                    }
+                  >
+                    <Trash2 className=" h-4 w-4 text-gray-500" />
+                  </Button>
                 </div>
-                <div className=" flex justify-end items-end flex-1">
-                  Qty: {item.productQty}
+                <div className=" flex justify-end items-end flex-1 gap-x-1">
+                  <Button
+                    className=" bg-gray-200 rounded-full hover:bg-gray-200 text-gray-800 h-8 w-8 text-sm hover:ring-1 ring-gray-700 lg:ml-4 mr-4"
+                    onClick={() =>
+                      handleQuantityChange(index, item.productQty - 1)
+                    }
+                  >
+                    -
+                  </Button>
+                  <div>{item.productQty}</div>
+                  <Button
+                    className=" bg-gray-200 rounded-full hover:bg-gray-200 text-gray-800 h-8 w-8 text-sm hover:ring-1 ring-gray-700 lg:ml-4 mr-4"
+                    onClick={() =>
+                      handleQuantityChange(index, item.productQty + 1)
+                    }
+                  >
+                    +
+                  </Button>
                 </div>
               </div>
             </div>

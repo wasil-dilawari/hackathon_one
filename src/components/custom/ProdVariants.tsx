@@ -6,12 +6,18 @@ import { RootState } from "@/store/store";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function ProdVariants(props: { sizes: string[] }) {
+interface IProdVariantsProps {
+  sizes: string[];
+}
+
+export default function ProdVariants({ sizes }: IProdVariantsProps) {
   const dispatch = useDispatch();
+
   const [firstRender, setfirstRender] = useState(true);
   if (firstRender) {
     dispatch(CartActions.clearVariant());
   }
+
   const productVariant = useSelector(
     (state: RootState) => state.cart.productVariant
   );
@@ -28,7 +34,7 @@ export default function ProdVariants(props: { sizes: string[] }) {
         SELECT SIZE
       </div>
       <div className=" flex gap-4 pt-2 md:pt-4">
-        {props.sizes.map((size) => (
+        {sizes.map((size) => (
           <Button
             // variant="outline"
             className={
