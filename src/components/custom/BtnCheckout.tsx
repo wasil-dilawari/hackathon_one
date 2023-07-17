@@ -5,7 +5,7 @@ import { RootState } from "@/store/store";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui/button";
 import { shoppingItem } from "@/store/slice/cartSlice";
-import { ExternalLink } from "lucide-react";
+import { Lock } from "lucide-react";
 
 export default function BtnCheckout() {
   const dispatch = useDispatch();
@@ -49,15 +49,15 @@ export default function BtnCheckout() {
 
     const data = await response.json();
     if (data.session) {
-      const checkoutURL = data.session.url;
-      // stripe?.redirectToCheckout({ sessionId: data.session.id });
-      window.open(checkoutURL, "_blank");
+      stripe?.redirectToCheckout({ sessionId: data.session.id });
+      // const checkoutURL = data.session.url;
+      // window.open(checkoutURL, "_blank");
     }
   }
 
   return (
     <Button className=" rounded-none px-6 py-6 " onClick={handleCheckout}>
-      Proceed to Checkout <ExternalLink className=" h-5 w-5 ml-2" />
+      Proceed to Checkout <Lock className=" h-5 w-5 ml-2" />
     </Button>
   );
 }
