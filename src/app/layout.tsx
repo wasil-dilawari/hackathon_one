@@ -1,6 +1,7 @@
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import Providers from "@/components/redux/Provider";
+import { Analytics } from "@vercel/analytics/react";
 
 import "@/app/globals.css";
 
@@ -26,6 +27,8 @@ export default function RootLayout({
             <Header />
           </header>
           <main className=" ">{children}</main>
+          <Analytics />
+
           <footer>
             <Footer />
           </footer>
