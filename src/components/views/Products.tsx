@@ -1,9 +1,6 @@
-import Image from "next/image";
 import { client } from "../../../sanity/lib/client";
-import { urlForImage } from "../../../sanity/lib/image";
-
 import { Image as IImage } from "sanity";
-import Link from "next/link";
+import SwiperComponent from "../custom/SwiperComponent";
 
 interface Iproduct {
   _id: string;
@@ -22,29 +19,11 @@ export default async function Products() {
           PRODUCTS
         </div>
         <h2 className="text-3xl font-bold text-center">Check What We Have</h2>
-        <div className=" flex flex-col gap-8 md:gap-0 md:flex-row justify-center items-start">
-          {data.map((product: Iproduct) => (
-            <div
-              key={product._id}
-              className=" lg:transition lg:ease-in-out lg:hover:scale-110 lg:duration-300"
-            >
-              <Link href={`/product/${product._id}`}>
-                <div>
-                  <Image
-                    src={urlForImage(product.primaryImage).url()}
-                    alt={product.title}
-                    width={300}
-                    height={400}
-                  />
-                </div>
-                <h2 className=" font-semibold text-lg mt-1 md:mt-4">
-                  {product.title}
-                </h2>
-                <p className=" font-semibold text-lg ">${product.price}</p>
-              </Link>
-            </div>
-          ))}
-        </div>
+        {/* <div className=" flex flex-col gap-8 md:gap-0 md:flex-row justify-center items-start"> */}
+        {/* </div> */}
+      </div>
+      <div className=" flex justify-center -mx-10">
+        <SwiperComponent data={data} />
       </div>
     </section>
   );

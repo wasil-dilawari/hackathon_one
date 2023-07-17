@@ -35,6 +35,7 @@ export async function POST(req: NextRequest) {
               currency: "USD",
               product_data: {
                 name: `${item.productTitle} [Size:(${item.productVariant})]`,
+                images: [item.productImage],
               },
               unit_amount: item.productPrice * 100,
             },

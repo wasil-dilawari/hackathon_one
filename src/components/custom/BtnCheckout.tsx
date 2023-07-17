@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../ui/button";
 import { shoppingItem } from "@/store/slice/cartSlice";
 import { Lock } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function BtnCheckout() {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ export default function BtnCheckout() {
 
     const data = await response.json();
     if (data.session) {
+      toast.loading("Redirecting...");
       stripe?.redirectToCheckout({ sessionId: data.session.id });
       // const checkoutURL = data.session.url;
       // window.open(checkoutURL, "_blank");

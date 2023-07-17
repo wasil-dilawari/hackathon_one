@@ -15,7 +15,7 @@ export default async function CategoryMenuList() {
   const data: ICategory[] = await getCategoryData();
 
   return (
-    <ul className=" flex gap-6">
+    <ul className=" flex justify-center md:justify-start gap-6">
       {data.map((data: ICategory) => (
         <li key={data._id}>
           <Link href={`/${data.title}`}>{data.title}</Link>
