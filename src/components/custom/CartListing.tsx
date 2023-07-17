@@ -8,6 +8,7 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 import { CartActions } from "@/store/slice/cartSlice";
 import toast from "react-hot-toast";
+import BtnCheckout from "./BtnCheckout";
 
 export default function CartListing() {
   const dispatch = useDispatch();
@@ -149,9 +150,10 @@ export default function CartListing() {
             <div className=" p-2 ">${subTotal.toLocaleString()}</div>
           </div>
           <div className=" flex justify-center">
-            <Button className=" rounded-none px-6 py-6">
+            <BtnCheckout />
+            {/* <Button className=" rounded-none px-6 py-6">
               Proceed to Checkout
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
