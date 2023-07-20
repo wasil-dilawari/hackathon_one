@@ -3,7 +3,6 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import IconHeaderCart from "./IconHeaderCart";
-import CategoryMenuList from "../../../trash/component/CategoryMenuList";
 import Image from "next/image";
 import logoImage from "public/images/logos/logo.webp";
 import { Menu, Search, X } from "lucide-react";
