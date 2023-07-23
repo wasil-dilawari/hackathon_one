@@ -36,23 +36,20 @@ export default function Navbar({ navLinks }: NavbarProps) {
           {/* <CategoryMenuList navLinks={navLinks} /> */}
         </div>
         <div className="hidden lg:block order-3 ">
-          <div className=" flex items-center border border-gray-300 rounded-md">
-            {/* <Search className="h-4 w-4 text-gray-400 ml-1 " />
-        <Input
-          className=" font-light text-sm px-1 rounded-md"
-          size={30}
-          type="text"
-          placeholder="What are you looking for"
-        /> */}
+          <div className=" flex items-center border border-gray-500 rounded-md">
+            <Search className="h-4 w-4 text-gray-400 ml-1 " />
+            <Input
+              className=" font-light text-sm px-1 rounded-md"
+              size={30}
+              type="text"
+              placeholder="What are you looking for"
+            />
           </div>
         </div>
         <div className=" order-4 flex">
-          {/* <Link href={"/reduxcart"}>
-            <IconHeaderCart />
-          </Link> */}
           <Link
             href={"/cart"}
-            // className=" ring-2 ring-black rounded-full mx-2"
+            className=" ring-2 ring-gray-500 rounded-full mx-2"
           >
             <IconHeaderCart />
           </Link>
