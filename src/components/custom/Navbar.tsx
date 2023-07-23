@@ -47,7 +47,13 @@ export default function Navbar({ navLinks }: NavbarProps) {
           </div>
         </div>
         <div className=" order-4 flex">
-          <Link href={"/cart"}>
+          {/* <Link href={"/reduxcart"}>
+            <IconHeaderCart />
+          </Link> */}
+          <Link
+            href={"/cart"}
+            // className=" ring-2 ring-black rounded-full mx-2"
+          >
             <IconHeaderCart />
           </Link>
           <button
@@ -63,13 +69,21 @@ export default function Navbar({ navLinks }: NavbarProps) {
         <div className=" order-last md:order-2 flex-1 md:px-10 md:hidden w-full">
           <ul className=" flex flex-col w-full justify-center pl-10 pb-10 md:justify-start gap-6 ">
             {navLinks.map((data: INavLinks) => (
-              <li key={data._id}>
-                <Link href={`/${data.title}`}>{data.title}</Link>
-              </li>
+              <Link
+                href={`/${data.title}`}
+                onClick={() => setNavbarStatus(!navbarStatus)}
+                key={data._id}
+              >
+                <li>{data.title}</li>
+              </Link>
             ))}
-            <li>
-              <Link href="/All">All Products</Link>
-            </li>
+            <Link
+              href="/All"
+              onClick={() => setNavbarStatus(!navbarStatus)}
+              key="All"
+            >
+              <li>All Products</li>
+            </Link>
           </ul>
 
           {/* <CategoryMenuList navLinks={navLinks} /> */}

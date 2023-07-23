@@ -1,3 +1,4 @@
+import { IDrizzleData } from "@/components/custom/CartListingDrizzle";
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
@@ -31,6 +32,12 @@ export interface PayloadData {
 
 export interface CartUpdatePayloadData {
   itemIndex: number;
+  newQty: number;
+}
+
+export interface DrizzleCartUpdatePayloadData {
+  productID: string;
+  productVariant: string;
   newQty: number;
 }
 
@@ -95,6 +102,32 @@ export const cartSlice = createSlice({
     clearCart: (state) => {
       state = initialState;
     },
+    setCart: (state, actions: PayloadAction<IDrizzleData[]>) => {
+      // console.log(actions.payload);
+
+      const newItems = actions.payload.map((item) => ({
+        productID: item.product_id,
+        productVariant: item.product_variant,
+        productQty: item.product_qty,
+        productTitle: item.product_title,
+        productType: item.product_type,
+        productPrice: item.product_price,
+        productImage: item.product_image,
+      }));
+
+      state.shoppingCart = newItems; // Replace the existing shoppingCart with newItems
+      state.cartSize = state.shoppingCart.reduce(
+        (total, item) => total + item.productQty,
+        0
+      );
+    },
+    syncCart: (state, actions: PayloadAction<shoppingItem[]>) => {
+      state.shoppingCart = actions.payload;
+      state.cartSize = actions.payload.reduce(
+        (total, item) => total + item.productQty,
+        0
+      );
+    },
     clearVariant: (state) => {
       state.productVariant = "";
     },
@@ -110,6 +143,28 @@ export const cartSlice = createSlice({
       const { itemIndex, newQty } = action.payload;
       if (itemIndex >= 0 && itemIndex < state.shoppingCart.length) {
         state.shoppingCart[itemIndex].productQty = newQty;
+      }
+      state.cartSize = state.shoppingCart.reduce(
+        (total, item) => total + item.productQty,
+        0
+      );
+    },
+    updateQtyInDrizzleCart: (
+      state,
+      action: PayloadAction<DrizzleCartUpdatePayloadData>
+    ) => {
+      const { productID, productVariant, newQty } = action.payload;
+      const cartItemIndex = state.shoppingCart.findIndex(
+        (item) =>
+          item.productID === productID && item.productVariant === productVariant
+      );
+
+      if (cartItemIndex !== -1) {
+        state.shoppingCart[cartItemIndex].productQty = newQty;
+        state.cartSize = state.shoppingCart.reduce(
+          (total, item) => total + item.productQty,
+          0
+        );
       }
     },
     updateTotalQuantity: (state) => {

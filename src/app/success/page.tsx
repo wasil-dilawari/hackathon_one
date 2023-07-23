@@ -1,7 +1,37 @@
+"use client";
+
 import { CheckCircle2 } from "lucide-react";
+import { useDispatch } from "react-redux";
+import { CartActions } from "@/store/slice/cartSlice";
+import { mutate } from "swr";
+import toast from "react-hot-toast";
+
 import React from "react";
 
 export default function SuccessPage() {
+  const dispatch = useDispatch();
+  const apiUrl = "/api/cart";
+
+  (async () => {
+    try {
+      const res = await fetch("/api/cart", {
+        method: "DELETE",
+        body: JSON.stringify({
+          product_id: "xxxxdeleteallproductsforthisuserxxxx",
+        }),
+      });
+
+      if (res.ok) {
+        dispatch(CartActions.clearCart());
+        mutate(apiUrl);
+      } else {
+        toast.error("Failed to Empty Cart");
+      }
+    } catch (error) {
+      console.error("Error emptying cart:", error);
+      toast.error("Failed to Empty Cart");
+    }
+  })();
   return (
     <section className="  bg-gray-50 py-10 px-10">
       <div className=" ">
