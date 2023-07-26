@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CartActions } from "@/store/slice/cartSlice";
 import toast from "react-hot-toast";
 import { RootState } from "@/store/store";
+import { useState } from "react";
 
 interface IBtnDataReceived {
   productID: string;
@@ -19,6 +20,8 @@ interface IBtnDataReceived {
 
 export default function BtnAddToCart(data: IBtnDataReceived) {
   // console.log(id._id);
+  const [isUpdating, setIsUpdating] = useState(false);
+
   const dispatch = useDispatch();
   const variantCheck = useSelector(
     (state: RootState) => state.cart.productVariant
@@ -32,12 +35,16 @@ export default function BtnAddToCart(data: IBtnDataReceived) {
         item.productID === data.productID &&
         item.productVariant === variantCheck
     );
+    if (isUpdating) {
+      return;
+    }
 
     // console.log("Existing Item Index: " + existingCartItemIndex);
     // console.log("data.productID: " + data.productID);
     // console.log("data.productVariant: " + variantCheck);
 
     if (existingCartItemIndex !== -1) {
+      setIsUpdating(true);
       // If the product with the same product_id and product_variant exists,
       // update the quantity by adding to the existing quantity
       const existingCartItem = myCart[existingCartItemIndex];
@@ -95,6 +102,8 @@ export default function BtnAddToCart(data: IBtnDataReceived) {
         }
       } catch (error) {
         toast.error("Failed to add product to cart");
+      } finally {
+        setIsUpdating(false);
       }
     }
 
@@ -135,7 +144,11 @@ export default function BtnAddToCart(data: IBtnDataReceived) {
   };
 
   return (
-    <Button className=" rounded-none px-4 py-6" onClick={addItem}>
+    <Button
+      className=" rounded-none px-4 py-6"
+      onClick={addItem}
+      disabled={isUpdating}
+    >
       <ShoppingCart className=" mr-2" /> Add to Cart
     </Button>
   );
