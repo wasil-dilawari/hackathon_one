@@ -17,29 +17,6 @@ export default function BtnCheckout() {
 
   async function handleCheckout() {
     const stripe = await getStripePromise();
-    // const products: IStripeProductData[] = [
-    //   {
-    //     productID: "1",
-    //     productTitle: "Product 1",
-    //     productVariant: "S",
-    //     productQty: 2,
-    //     productPrice: 100,
-    //   },
-    //   {
-    //     productID: "2",
-    //     productTitle: "Product 2",
-    //     productVariant: "L",
-    //     productQty: 1,
-    //     productPrice: 200,
-    //   },
-    //   {
-    //     productID: "3",
-    //     productTitle: "Product 3",
-    //     productVariant: "XL",
-    //     productQty: 3,
-    //     productPrice: 300,
-    //   },
-    // ];
 
     const response = await fetch("api/stripe-session/", {
       method: "POST",
@@ -52,8 +29,6 @@ export default function BtnCheckout() {
     if (data.session) {
       toast.loading("Redirecting...");
       stripe?.redirectToCheckout({ sessionId: data.session.id });
-      // const checkoutURL = data.session.url;
-      // window.open(checkoutURL, "_blank");
     }
   }
 

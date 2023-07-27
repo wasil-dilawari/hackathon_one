@@ -32,8 +32,6 @@ export default function Navbar({ navLinks }: NavbarProps) {
               <Link href="/All">All Products</Link>
             </li>
           </ul>
-
-          {/* <CategoryMenuList navLinks={navLinks} /> */}
         </div>
         <div className="hidden lg:block order-3 ">
           <div className=" flex items-center border border-gray-500 rounded-md">
@@ -82,8 +80,6 @@ export default function Navbar({ navLinks }: NavbarProps) {
               <li>All Products</li>
             </Link>
           </ul>
-
-          {/* <CategoryMenuList navLinks={navLinks} /> */}
         </div>
       ) : (
         <></>

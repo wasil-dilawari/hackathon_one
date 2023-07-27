@@ -25,7 +25,6 @@ export default function ProdVariants({ sizes }: IProdVariantsProps) {
   const selectVariant = (size: string) => {
     setfirstRender(false);
     dispatch(CartActions.selectVariant({ productVariant: size }));
-    // toast.success("Product Added to Cart");
   };
 
   return (
@@ -36,7 +35,6 @@ export default function ProdVariants({ sizes }: IProdVariantsProps) {
       <div className=" flex gap-4 pt-2 md:pt-4">
         {sizes.map((size) => (
           <Button
-            // variant="outline"
             className={
               size === productVariant
                 ? " bg-gray-700 text-white rounded-full hover:bg-bg-gray-700 font-bold h-8 w-8 text-sm"

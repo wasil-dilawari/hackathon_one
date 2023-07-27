@@ -1,5 +1,3 @@
-// "use client";
-
 import { client } from "../../../sanity/lib/client";
 import Navbar from "../custom/Navbar";
 

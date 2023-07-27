@@ -9,18 +9,10 @@ const stripe = new Stripe(key, {
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  // console.log(body);
   try {
     if (body.length > 0) {
-      // Create Checkout Sessions from body params.
+      /* Checkout Sessions from body params. */
       const session = await stripe.checkout.sessions.create({
-        // line_items: [
-        //   {
-        //     // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
-        //     price: "{{PRICE_ID}}",
-        //     quantity: 1,
-        //   },
-        // ],
         submit_type: "pay",
         mode: "payment",
         payment_method_types: ["card"],
@@ -51,7 +43,6 @@ export async function POST(req: NextRequest) {
         cancel_url: `${req.headers.get("origin")}/cart`,
       });
       return NextResponse.json({ session });
-      // res.redirect(303, session.url);
     } else {
       return NextResponse.json({ message: "No Data Found" });
     }
@@ -59,6 +50,5 @@ export async function POST(req: NextRequest) {
     console.log(err);
 
     return NextResponse.json(err.message);
-    // res.status(err.statusCode || 500).json(err.message);
   }
 }

@@ -1,15 +1,30 @@
+/* Dynamically created Product Listing Page based on category */
+
 import ProductCard from "@/components/custom/ProductCard";
 import { client } from "../../../sanity/lib/client";
 import { Image as IImage } from "sanity";
 
-async function getCategoryID(categoryTitle: string) {
-  const res = await client.fetch(
-    `*[_type=="category" && title=="${categoryTitle}"]{_id}`
-  );
-  // console.log(res[0]._id);
-
-  return res[0]._id;
+interface IProduct {
+  _id: string;
+  title: string;
+  price: number;
+  primaryImage: IImage;
+  productType: { title: string };
 }
+
+/* generateMetadata to update Page Title of Dynamic Category Page*/
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { category: string };
+}) {
+  return {
+    title: params.category,
+  };
+}
+
+/* getProductData function to retrieve Products from Sanity for a category passed as params */
 
 async function getProductData(category: string) {
   if (category === "All") {
@@ -35,27 +50,7 @@ async function getProductData(category: string) {
     }`
     );
   }
-  // async function getProductData(categoryID: string, categoryTitle: string) {
-  // const res = await client.fetch(
-  //   `*[_type == "product" && references("${categoryID}")]
-  //   {
-  //     _id,
-  //     title,
-  //     price,
-  //     primaryImage,
-  //     productType -> {title}}`
-  // );
-  // console.log(res);
-
   return res;
-}
-
-interface Iproduct {
-  _id: string;
-  title: string;
-  price: number;
-  primaryImage: IImage;
-  productType: { title: string };
 }
 
 export default async function categoryPage({
@@ -63,23 +58,21 @@ export default async function categoryPage({
 }: {
   params: { category: string };
 }) {
-  // const catID: string = await getCategoryID(params.category);
-  //   console.log(catID);
-
-  const data: Iproduct[] = await getProductData(params.category);
-  // const data: Iproduct[] = await getProductData(catID);
+  const data: IProduct[] = await getProductData(params.category);
 
   return (
     <div className=" flex flex-col ">
+      {/* Category Heading */}
       <div className=" text-gray-200 font-semibold text-4xl md:text-7xl lg:text-9xl mb-4 text-center lg:text-left">
         {params.category === "All" ? "All Products" : params.category}
       </div>
+      {/* Product List */}
       <div className=" flex flex-col items-center">
         <div className=" grid grid-cols-1 md:grid-cols-[repeat(3,auto)] lg:grid-cols-[repeat(4,auto)] justify-center gap-10">
           {data.length === 0 ? (
             <div>No products found in {params.category}</div>
           ) : (
-            data.map((product: Iproduct) => (
+            data.map((product: IProduct) => (
               <div key={product._id}>
                 <ProductCard product={product} />
               </div>

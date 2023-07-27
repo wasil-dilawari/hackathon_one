@@ -20,10 +20,6 @@ export default function SwiperComponent(props: { data: Iproduct[] }) {
     <>
       <Swiper
         spaceBetween={0}
-        // slidesPerView={3.2}
-        // centeredSlides
-        // onSlideChange={() => console.log("slide change")}
-        // onSwiper={(swiper) => console.log(swiper)}
         breakpoints={{
           1260: { slidesPerView: 4.25, spaceBetween: 0 },
           768: { slidesPerView: 3.25, spaceBetween: 0 },
@@ -31,16 +27,9 @@ export default function SwiperComponent(props: { data: Iproduct[] }) {
         }}
         scrollbar
       >
-        {/* <SwiperSlide>1</SwiperSlide>
-        <SwiperSlide>2</SwiperSlide>
-        <SwiperSlide>3</SwiperSlide>
-        <SwiperSlide>4</SwiperSlide> */}
         {props.data.map((product: Iproduct, index) => (
           <SwiperSlide key={product._id}>
-            <div
-              // key={product._id}
-              className=" scale-90 lg:transition lg:ease-in-out lg:hover:scale-100 lg:duration-300 shadow-lg p-2"
-            >
+            <div className=" scale-90 lg:transition lg:ease-in-out lg:hover:scale-100 lg:duration-300 shadow-lg p-2">
               <Link href={`/product/${product._id}`}>
                 <div className=" flex justify-center">
                   <Image
@@ -48,7 +37,6 @@ export default function SwiperComponent(props: { data: Iproduct[] }) {
                     alt={product.title}
                     width={300}
                     height={400}
-                    // loading="lazy"
                   />
                 </div>
                 <h2 className=" font-semibold text-lg mt-1 md:mt-4">

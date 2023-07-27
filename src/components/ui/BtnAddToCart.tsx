@@ -5,11 +5,13 @@ import { ShoppingCart } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { CartActions } from "@/store/slice/cartSlice";
 
+const apiUrl = process.env.NEXT_PUBLIC_CART_API_URL || "";
+
 export default function ButtonAddProduct(id: { _id: string }) {
   // console.log(id._id);
   const dispatch = useDispatch();
   const handleAddToCart = async () => {
-    const res = await fetch("/api/cart", {
+    const res = await fetch(apiUrl, {
       method: "POST",
       body: JSON.stringify({
         product_id: id._id,

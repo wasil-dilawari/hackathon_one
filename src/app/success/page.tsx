@@ -6,15 +6,17 @@ import { CartActions } from "@/store/slice/cartSlice";
 import { mutate } from "swr";
 import toast from "react-hot-toast";
 
-import React from "react";
+import React, { useState } from "react";
+
+const apiUrl = process.env.NEXT_PUBLIC_CART_API_URL || "";
 
 export default function SuccessPage() {
   const dispatch = useDispatch();
-  const apiUrl = "/api/cart";
+  const [isLoading, setIsLoading] = useState(true);
 
-  (async () => {
+  const emptyCart = async () => {
     try {
-      const res = await fetch("/api/cart", {
+      const res = await fetch(apiUrl, {
         method: "DELETE",
         body: JSON.stringify({
           product_id: "xxxxdeleteallproductsforthisuserxxxx",
@@ -30,8 +32,19 @@ export default function SuccessPage() {
     } catch (error) {
       console.error("Error emptying cart:", error);
       toast.error("Failed to Empty Cart");
+    } finally {
+      setIsLoading(false);
     }
-  })();
+  };
+
+  if (typeof window !== "undefined") {
+    emptyCart();
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section className="  bg-gray-50 py-10 px-10">
       <div className=" ">

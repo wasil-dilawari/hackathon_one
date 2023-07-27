@@ -3,7 +3,7 @@
 import { Middleware } from "@reduxjs/toolkit";
 import { CartActions, shoppingItem } from "@/store/slice/cartSlice";
 
-const apiUrl = "/api/cart";
+const apiUrl = process.env.NEXT_PUBLIC_CART_API_URL || "";
 
 interface IDrizzleData {
   product_id: string;
@@ -16,8 +16,11 @@ interface IDrizzleData {
 }
 
 function mapDrizzleDataToShoppingItem(
-  drizzleData: IDrizzleData[]
+  drizzleData: IDrizzleData[] | null | undefined
 ): shoppingItem[] {
+  if (!drizzleData || !Array.isArray(drizzleData)) {
+    return [];
+  }
   return drizzleData.map(function (item) {
     return {
       productID: item.product_id,
@@ -50,20 +53,17 @@ function mapShoppingItemToDrizzleData(
 const drizzleCartMiddleware: Middleware = function (store) {
   return function (next) {
     return async function (action) {
-      //   console.log("Middleware started");
-
       if (action.type === "@@INIT") {
         try {
-          //   console.log("Middleware try catch started");
-
           const res = await fetch(apiUrl);
           if (res.ok) {
             const drizzleCartData: IDrizzleData[] = await res.json();
             const newItems: shoppingItem[] =
               mapDrizzleDataToShoppingItem(drizzleCartData);
-            // console.log("Fetched cart data from server:", newItems); // Log the newItems variable
 
-            store.dispatch(CartActions.syncCart(newItems)); // Update the Redux store with the Drizzle cart data
+            store.dispatch(CartActions.syncCart(newItems));
+          } else {
+            console.error("Failed to fetch Drizzle cart data:", res.status);
           }
         } catch (error) {
           console.log("Error fetching Drizzle cart data:", error);

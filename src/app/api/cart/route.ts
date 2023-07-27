@@ -5,13 +5,10 @@ import { cookies } from "next/headers";
 import { sql, eq, and } from "drizzle-orm";
 
 export async function GET() {
-  // const uid = v4();
-  // const setCookies = cookies();
-  // const user_id = cookies().get("user_id");
-  let user_id = cookies().get("user_id")?.value as string;
+  const user_id = cookies().get("user_id")?.value as string;
 
-  if (!user_id) {
-    user_id = "";
+  if (!user_id || user_id === "") {
+    return NextResponse.json({ message: "No User Found!" });
   } else {
     try {
       const res = await db

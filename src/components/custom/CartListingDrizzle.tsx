@@ -26,9 +26,9 @@ export interface IDrizzleData {
   updatedAt: null;
   user_id: string;
 }
+const apiUrl = process.env.NEXT_PUBLIC_CART_API_URL || "";
 
 export default function CartListingDrizzle() {
-  const apiUrl = "/api/cart";
   const { MyDrizzleCart, DrizzleError } = useDrizzleData();
   const [isUpdatingQuantity, setIsUpdatingQuantity] = useState(false);
 
@@ -41,7 +41,7 @@ export default function CartListingDrizzle() {
     productID: string,
     productVariant: string
   ) => {
-    const res = await fetch("/api/cart", {
+    const res = await fetch(apiUrl, {
       method: "DELETE",
       body: JSON.stringify({
         product_id: productID,
@@ -75,7 +75,7 @@ export default function CartListingDrizzle() {
     if (newQty >= 1 && newQty <= 10) {
       setIsUpdatingQuantity(true);
       try {
-        await fetch("/api/cart", {
+        await fetch(apiUrl, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -94,7 +94,7 @@ export default function CartListingDrizzle() {
             newQty: newQty,
           })
         );
-        updateTotalQuantity();
+        dispatch(CartActions.updateTotalQuantity());
       } catch (error) {
         console.log(error);
         toast.error("Failed to update quantity.", {
@@ -120,18 +120,11 @@ export default function CartListingDrizzle() {
     }
   };
 
-  const updateTotalQuantity = () => {
-    // const totalQty = myCart.reduce((total, item) => total + item.productQty, 0);
-    dispatch(CartActions.updateTotalQuantity());
-  };
-
   if (DrizzleError) {
     return <div>Error loading data</div>;
   } else if (!MyDrizzleCart) {
     return <div>Loading...</div>;
   } else if (MyDrizzleCart.length < 1) {
-    // console.log("MyDrizzleCar.length < 1");
-
     return (
       <div className=" flex flex-col items-center justify-center">
         <ShoppingBag className=" h-28 w-28" />
@@ -141,7 +134,6 @@ export default function CartListingDrizzle() {
       </div>
     );
   } else {
-    // myCart.map((item) => (subTotal += item.productQty * item.productPrice));
     const subTotal = myCart.reduce((total, item) => {
       return total + item.productQty * item.productPrice;
     }, 0);
@@ -239,28 +231,9 @@ export default function CartListingDrizzle() {
           </div>
           <div className=" flex justify-center">
             <BtnCheckout />
-            {/* <Button className=" rounded-none px-6 py-6">
-              Proceed to Checkout
-            </Button> */}
           </div>
         </div>
       </div>
     );
   }
 }
-
-const GetDrizzleCart = () => {
-  const apiUrl = "/api/cart";
-  const fetcher = (url: string) => fetch(url).then((res) => res.json());
-  const { data: MyDrizzleCart, error: DrizzleError } = useSWR(apiUrl, fetcher);
-
-  // console.log("MyDrizzleCart Data: " + MyDrizzleCart);
-
-  if (DrizzleError) {
-    return <div>Error loading data</div>;
-  }
-
-  if (!MyDrizzleCart) {
-    return <div>Loading...</div>;
-  }
-};

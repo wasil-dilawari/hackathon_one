@@ -19,8 +19,6 @@ export default async function Products() {
           PRODUCTS
         </div>
         <h2 className="text-3xl font-bold text-center">Check What We Have</h2>
-        {/* <div className=" flex flex-col gap-8 md:gap-0 md:flex-row justify-center items-start"> */}
-        {/* </div> */}
       </div>
       <div className=" flex justify-center -mx-10">
         <SwiperComponent data={data} />

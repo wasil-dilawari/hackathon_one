@@ -7,7 +7,7 @@
 //   },
 // });
 
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore } from "@reduxjs/toolkit";
 import cartSlice from "./slice/cartSlice";
 import drizzleCartMiddleware from "../components/middleware/drizzleCartMiddleware"; // Import your custom middleware
 

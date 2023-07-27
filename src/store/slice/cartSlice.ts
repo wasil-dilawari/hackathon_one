@@ -101,10 +101,9 @@ export const cartSlice = createSlice({
     },
     clearCart: (state) => {
       state = initialState;
+      console.log("Cart Cleared");
     },
     setCart: (state, actions: PayloadAction<IDrizzleData[]>) => {
-      // console.log(actions.payload);
-
       const newItems = actions.payload.map((item) => ({
         productID: item.product_id,
         productVariant: item.product_variant,
@@ -115,7 +114,7 @@ export const cartSlice = createSlice({
         productImage: item.product_image,
       }));
 
-      state.shoppingCart = newItems; // Replace the existing shoppingCart with newItems
+      state.shoppingCart = newItems;
       state.cartSize = state.shoppingCart.reduce(
         (total, item) => total + item.productQty,
         0
@@ -179,7 +178,6 @@ export const cartSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const CartActions = cartSlice.actions;
 
 export default cartSlice.reducer;

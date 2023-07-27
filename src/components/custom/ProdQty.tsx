@@ -11,12 +11,10 @@ export default function ProdQty() {
   const dispatch = useDispatch();
   const qty = useSelector((state: RootState) => state.cart.productQty);
 
-  // const [qty, setQty] = useState(1);
   const [firstRender, setFirstRender] = useState(true);
 
   const handleQuantityChange = (newQty: number) => {
     if (newQty >= 1 && newQty <= 10) {
-      // setQty(newQty);
       dispatch(CartActions.updateQty(newQty));
       setFirstRender(false);
     } else {

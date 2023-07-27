@@ -49,7 +49,6 @@ export default function CartListing() {
   };
 
   const updateTotalQuantity = () => {
-    // const totalQty = myCart.reduce((total, item) => total + item.productQty, 0);
     dispatch(CartActions.updateTotalQuantity());
   };
 
@@ -63,7 +62,6 @@ export default function CartListing() {
       </div>
     );
   } else {
-    // myCart.map((item) => (subTotal += item.productQty * item.productPrice));
     const subTotal = myCart.reduce((total, item) => {
       return total + item.productQty * item.productPrice;
     }, 0);
@@ -151,9 +149,6 @@ export default function CartListing() {
           </div>
           <div className=" flex justify-center">
             <BtnCheckout />
-            {/* <Button className=" rounded-none px-6 py-6">
-              Proceed to Checkout
-            </Button> */}
           </div>
         </div>
       </div>
